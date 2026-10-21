@@ -1,0 +1,190 @@
+Normal-scale p45 sufficiency: refined reduction and a small complete certificate
+2026-10-21
+
+Outcome
+
+The fixed normal-scale predicate is true at p45..64 and false at p35..44.
+This round provides an algebraic reduction to a complete small certificate:
+1600 coefficient/t branches, 2814 surviving J/eta branches, and 236 residue
+solutions. Of these, 234 reconstruct a coefficient outside [128,255]; the
+other two contradict the exact eta condition. The prior 630848-representative
+normal certificate is not needed by this new sufficient-condition proof.
+
+The final residue exclusion remains computer-assisted. This is NOT a pure
+symbolic p45 proof. The exact certificate-free arithmetic lemma is stated in
+section 8. There is no new general rounding theorem or publication-novelty
+claim. The independent R49 work is a separate result and evidence stream.
+
+1. Fixed predicate and assumptions
+
+Let B contain nonnegative finite BF16 magnitudes. Inputs satisfy 0<=x<=a.
+For a>0 set s=RN32(a/6), ties to even with gradual underflow. This theorem
+requires s to be normal and positive. A zero maximum uses the unchanged
+fallback 2^-42 and is exact separately; positive subnormal scales belong to
+R49, not to this normal p45 theorem.
+
+Use G=(0,1/2,1,3/2,2,3,4,6). For y in [0,6), select the unique k with
+G[k]<=y<G[k+1] and set
+ C(y)=(k,floor(2^32*(y-G[k])/(G[k+1]-G[k]))).
+At y=6 use C(6)=(6,2^32). P_N(p) means
+ C(min(RNE_p(x/s),6))=C(min(x/s,6))
+for every legal normal-scale pair. The b32 lattice is fixed. Virtual RNE-p
+uses binary64 exponent range, with integer 35<=p<=64; no working underflow
+or overflow occurs in this domain. FTZ, arbitrary F32 inputs, arbitrary
+scales, a changed RNG word contract, CUDA execution and native p45 hardware
+are not included. Sign and packing remain unchanged outer composition.
+
+2. Normal scale and normalized input identities
+
+Write a=A*2^(ea-7), 128<=A<=255. Normal RN32(a/6) has integer 24-bit
+significand D, 2^23<=D<2^24, and
+ 3D=A*2^q+epsilon, epsilon in {-1,0,1},
+ q18 for A128..191; q17 for A192..255.                    (1)
+Epsilon is determined by nearest integer rounding of A*2^q/3; no tie exists.
+The scale is s=D*2^(ea-q-8), so x/s=X*2^(d+q+1)/D when
+x=X*2^(ex-7), X128..255, and d=ex-ea. Normalized BF16 subnormal x has
+trailing zeros in X and is included by this representation. Legality gives
+d<=0 and X<=A when d=0. Relaxing these two constraints below only enlarges
+the hypothetical-failure set, so cannot exclude a legal failure incorrectly.
+
+Since X*2^16/D is in [1/2,2), put eta=1[X*2^16<D]. Then, exactly,
+ E=floor(log2(x/s))=d+q-15-eta.
+For an interval width 2^(32-S), S in {31,32,33}, let
+ L=d+q+1+S, N=X*2^L.
+Whenever N is an integer, its exact exponent relationship is
+ E+S=L-16-eta; at p45, L+J=61+eta, J=45-E-S.              (2)
+Eta is an input-dependent binade condition, not a free bit.
+
+3. Crossing, including the tiny-ratio case
+
+Zero and r=x/s>=6 are exact after clipping. For 0<r<6, choose its exact
+interval and S. If r*2^S<1/2, monotonic RNE fixes the exactly representable
+half-threshold value 2^(-S-1), so the rounded ratio stays below 2^-S.
+The interval is the zero interval and both canonical thresholds are zero.
+This handles tiny ratios before using r's exponent in a midpoint argument.
+
+For r*2^S>=1/2, the next threshold B=ceil(r*2^S)*2^-S has left-hand binade
+E, including B at an upper power-of-two boundary. For p>=35 it is an even
+representable number. When L<0, X*2^L/D<2^-16, already in the tiny case.
+Otherwise N is integral. If D divides N, the ratio is a threshold and exact.
+For a positive remainder put j=D-(N mod D), Q=ceil(N/D), N+j=QD.
+Half-ULP separation and even tie selection give
+ upward crossing iff j*2^J<=D.                           (3)
+Lower thresholds are fixed and nearest rounding is monotone, so downward
+floor loss is impossible. Exact dyadic interpolation (Sterbenz for nonzero
+intervals) and threshold coverage of FP4 endpoints preserve the canonical
+base as well. These are standard rounding facts.
+
+The grid gives E+S<=33, hence J>=12 at p45. A carry with j>=1 and D<2^24
+requires J<=23. Thus L>=38 and L>=2q, including q18. If epsilon=0, D and N
+are divisible by 2^q, so positive j is a multiple of 2^q. Equation (3)
+instead gives j<=4095<2^q, a contradiction. Only epsilon=+/-1 remains.
+
+4. Positive-integer transform and a stronger bound
+
+D is odd and gcd(A,D)=1. Let u=L-2q>=0. From (1),
+A^2*2^(2q)=1 modulo D. Therefore
+ t=(j*A^2+X*2^u)/D
+is a positive integer, with exact identities
+ 3X*2^u=t*(A*2^q+epsilon)-3j*A^2,                        (4)
+ Q=t*2^(2q)-3j*(A*2^q-epsilon).                          (5)
+Also
+ t=Q/2^(2q)+j*A^2/D-j/(D*2^(2q)).
+
+The sharper observation in this round is Q<=2^(E+S+1)=2^(46-J).
+Combining it with (3) and the strictly negative last term gives
+ 0<t<(A^2+2^(46-2q))*2^-J.                               (6)
+This retains the dependence between Q, J and the ratio binade.
+
+For q18, A^2+1024<=37505<2^16; thus J12..15 and t<=9.
+For q17, A^2+4096<=69121<2^17; thus J12..16 and t<=16.
+Equations (2) now give u10..14 for q18, u11..16 for q17. In particular u<=q.
+Reducing (4) modulo 2^u is therefore valid:
+ 3j*A^2=epsilon*t modulo 2^u.                            (7)
+Unlike subnormal q15, no discarded t*A*2^q term survives at this modulus.
+
+5. Complete coefficient certificate and its checker
+
+The A,t superset has 64*9+64*16=1600 branches. Exclude epsilon-zero branches
+by divisibility as above. Retain only J12..23 obeying strict bound (6), and
+both eta values. These are exactly the 2814 rows in
+normal45_branch_certificate.csv. The strict bound itself implies the tighter
+J ranges above; the checker does not assume them to skip any branch.
+
+For c=3A^2, M=2^u, g=gcd(c,M), a solution requires g|epsilon*t. If this
+fails, the row records a gcd contradiction. Otherwise c/g is invertible
+modulo M/g, so all j are one residue class. The certificate supplies that
+residue. normal45_certificate_verifier.py checks the residue equation,
+coprimality, its canonical range, and EVERY positive member through
+floor(D/2^J). It does not perform modular inversion. Every such j must appear
+exactly once in normal45_reduction_results.json, with X from (4).
+
+There are 1290 gcd contradictions among the 2814 rows. The remaining rows
+produce 236 j solutions; some contain no j in the carry range. Of the 236,
+234 give X outside128..255. The two inside the range are displayed below.
+Complete branch coverage plus full residue-class accounting is the universal
+argument, not sampling. No raw (amax,x) pairs or old representatives are run.
+
+ q   A    D          eps  t  J   eta  L   u    j     X
+ 18  142  12408149   -1   4  12   1  50  14  2277  227
+ 17  239  10442069   -1   5  12   1  50  16   649  231
+
+Both are excluded algebraically by eta's definition:
+ 227*65536=14876672 >12408149,
+ 231*65536=15138816 >10442069.
+Their actual eta is zero, contrary to the eta=1 branch that produced them.
+Thus there is no legal normalized input, before needing x<=a or exact S.
+Dropping eta consistency would leave two false counterexample candidates.
+
+All p45 crossings have been excluded. Equation (3) and representability
+extend sufficiency to p46..64. This is a complete computer-assisted proof
+of P_N(p) for p45..64, independent of the old normal raw-pair certificate.
+
+6. Sharp necessity and two notions of minimum
+
+The inherited legal normal-scale pair a code492 (0x01ec), x code199
+(0x00c7) has A236,q17,D10310997,epsilon-1, X199, S33, E0, L49, j2845.
+The exact identity is
+ 199*2^49+2845=10864811689*10310997.
+At p44, 2845*2^11=5826560<=D; at p45, 2845*2^12=11653120>D.
+It therefore fails every p35..44. Its p44 thresholds are 2274877096 and
+2274877097, so this is bit-exact canonical failure, not distributional error.
+The new fixed arithmetic checker verifies this identity and a direct RNE
+negative control without rerunning the old lexicographic prefix search.
+
+Together, the uniform mathematical minimum on the declared normal domain
+within p35..64 is 45. The pair's lexicographic raw-code minimality is an
+inherited, separately verified ordering result; that ordering is not the
+argument for the mathematical precision minimum. No claim covers p<35.
+
+7. Theory status and composition
+
+Threshold separation, Sterbenz, monotonicity, integer divisibility and finite
+certificates are established tools. The additional domain obligations are
+the BF16 coefficient ranges, the RN32(a/6) divisor coupling, the b32 interval
+lattice, and eta's exact binade relationship. No failed direct substitution
+into a known theorem establishes novelty. See theory_comparison.txt.
+
+Combining this normal certificate with the prior subnormal p49 certificate
+(now independently re-enumerated in this round), and zero/saturation cases,
+gives full-domain p49 sufficiency without either old large raw-pair safety
+certificate. That composition remains computer-assisted. The known subnormal
+p48 witness supplies its sharp lower bound. Pure symbolic p49, universal
+b37 without certificates, formal checking, Rump derivability, the missing
+historical final-limits report and publication novelty remain unresolved.
+
+8. Exact remaining certificate-free lemma
+
+For q,A,D,epsilon fixed by (1), t positive and J,eta satisfying
+ J12..23, eta in {0,1}, t*2^J<A^2+2^(46-2q),
+ L=61+eta-J, u=L-2q,
+there are no integers j,X with
+ 1<=j<=floor(D/2^J), 128<=X<=255,
+ 3X*2^u=t*(A*2^q+epsilon)-3j*A^2,
+ eta=1[X*2^16<D].
+
+This lemma is TRUE by the complete finite certificate in section 5. What
+remains OPEN is a short symbolic derivation replacing that coefficient
+enumeration. The proof target is not the false claim that the relaxed
+congruence has no solutions. Any such proof must retain eta or an equivalent
+physical binade guard. No symbolic proof is asserted by relabeling this table.

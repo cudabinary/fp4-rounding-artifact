@@ -1,0 +1,14 @@
+{
+  "contract": "finite BF16/group32/RN32(amax/6)/RNE/gradual-underflow/E2M1/b32/virtual-p35..64",
+  "normal45": "Analytic reduction plus complete finite certificate; historical algebra review only",
+  "full49": "Composition with subnormal49, zero/saturation and monotonicity; finite-certificate assisted",
+  "normal_independent_checker": "UNEXECUTED_NOT_BUNDLED",
+  "independent_r49": "One historical non-blind direct-j implementation; full every-j ledger omitted",
+  "original_large_CPU_campaign": "HISTORICAL_NOT_REPLAYED",
+  "GPU": "HISTORICAL_SUMMARIES_ONLY_NO_NEW_RUN",
+  "closest_theory_derivability": "UNKNOWN_OPEN",
+  "publication_novelty": "UNKNOWN_OPEN",
+  "native_45_49_implementation": "NOT_ESTABLISHED",
+  "executed_binary_identity": "UNKNOWN",
+  "source_copy_identity": "PRESERVED_BY_SHA256_NOT_A_RIGHTS_OR_CORRECTNESS_CERTIFICATE"
+}

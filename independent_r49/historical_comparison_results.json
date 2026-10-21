@@ -1,0 +1,50 @@
+{
+  "status": "PASS_COMPLETE_BRANCH_AND_RECONSTRUCTION_AGREEMENT",
+  "old_branches": 4656,
+  "independent_branches": 4656,
+  "compared_branches": 4656,
+  "old_dispositions": {
+    "UNIQUE_RESIDUE_OUTSIDE_CARRY_RANGE": 1763,
+    "GCD_EXCLUSION": 1339,
+    "EXACT_SCALE_DIVISIBILITY_EXCLUSION": 1553,
+    "COARSE_CONGRUENCE_SURVIVOR": 1
+  },
+  "independent_counts": {
+    "A_values": 447,
+    "coefficient_t_branches": 4656,
+    "epsilon_zero_coefficient_t_branches": 1553,
+    "empty_carry_range_coefficient_t_branches": 80,
+    "congruence_checks": 124640,
+    "epsilon_zero_divisibility_checks": 42130,
+    "diagnostic_epsilon_zero_congruence_hits": 99,
+    "nonzero_epsilon_congruence_rejections": 82509,
+    "coarse_survivors": 1,
+    "full_equation_numerator_evaluations": 1,
+    "reconstruction_checks": 6,
+    "canonical_comparisons": 0,
+    "rounding_helper_controls": 4,
+    "reconstruction_status_BF16_X_RANGE_EXCLUSION": 1,
+    "reconstruction_status_NONINTEGER_X": 5
+  },
+  "coarse_survivors": [
+    [
+      16,
+      230,
+      5024427,
+      1,
+      4,
+      51,
+      15
+    ]
+  ],
+  "reconstruction_branches_compared": 6,
+  "mismatches": [],
+  "independent_implementation_prior_exposure_disclosed": true,
+  "blind_replication": false,
+  "enumeration_runs_in_independent_implementation": 1,
+  "extra_enumeration_performed_by_comparison": false,
+  "epsilon_zero_note": "99 relaxed diagnostic congruence hits are excluded by exact-scale divisibility; they are not physical candidates or disagreements",
+  "old_ledger_sha256": "5d041bcea13007f96229163a804e222c65ed5b5223f330f35373c1e1953c418a",
+  "independent_freeze_manifest_sha256": "1cee1dbff5b570a9c11621aa1e601d9354dd0bd7df00198248c86dbefcf106fd",
+  "comparison_code_sha256": "326be70e17bb1e72d1d62b9dce683dd98b4c064642a3d9861c650af4e6bde35d"
+}

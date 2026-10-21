@@ -1,0 +1,195 @@
+Subnormal p49 no-carry theorem with a complete reduced certificate
+2026-10-21
+
+Result and evidence level
+
+Under the fixed contract below, every derived positive subnormal F32 scale
+preserves the canonical b32 FP4 base and integer threshold at virtual RNE-p49.
+The same holds for p50..64 by precision monotonicity. The known p48 witness
+therefore makes 49 the sharp uniform precision within p35..64 on this subset.
+
+The proof consists of algebraic reductions, a complete 4656-row coefficient/t
+certificate, and the explicit exclusion of its single survivor. It does not
+enumerate raw (amax,x) pairs. It is a computer-assisted theorem, not a pure
+symbolic exclusion, a sample PASS, a proof-assistant development, or a native
+GPU result. This replaces the old 100575-pair subnormal sufficiency dependency.
+The complete full-domain p49 statement still uses the prior normal-scale
+finite certificate (or its stronger p45 result). A compact symbolic normal
+p45 proof remains open. No prior evidence file is changed.
+
+1. Contract and canonical target
+
+Inputs are finite nonnegative BF16 magnitudes 0<=x<=a. For a>0,
+s=RN32(a/6), ties to even with gradual underflow. The zero-group fallback is
+2^-42. Only scales with 0<s<2^-126 are considered in this theorem. Arbitrary
+F32 inputs, independently selected scales, FTZ, NaNs and infinities are outside
+this contract. Sign handling, RNG addressing and packing are unchanged outer
+composition, not proved by this scalar argument.
+
+Let G=(0,1/2,1,3/2,2,3,4,6). For y in [0,6), choose the unique k with
+G[k]<=y<G[k+1] and define
+
+ C(y)=(k, floor(2^32*(y-G[k])/(G[k+1]-G[k]))).
+
+Set C(6)=(6,2^32). The target is equality of
+C(min(RNE_p(x/s),6)) and C(min(x/s,6)), including the canonical base.
+RNE-p is virtual binary arithmetic with binary64 exponent range, p35..64.
+It does not imply that a native GPU p49 divide instruction exists.
+
+2. All subnormal scales and all legal inputs
+
+In units 2^-133, positive BF16 maxima producing subnormal s have exactly:
+
+ a magnitude code    A range        q      a in those units
+ 1..255              1..255         15     A
+ 256..383            128..255       16     2A
+ 384..447            128..191       17     4A
+
+At a code 448, a/6=2^-126 exactly. Monotonicity classifies the entire positive
+subnormal-scale domain. Put D=s*2^149, using unnormalized F32 subnormal units.
+Then D is the nearest integer to A*2^q/3, and
+
+ 3D=A*2^q+epsilon, epsilon in {-1,0,1}, 0<D<2^23.           (1)
+
+There are no halfway cases. Epsilon is determined by A and q, not chosen
+freely. Normalizing D to 24 bits would change epsilon; that is not done here.
+
+Every positive x is X*2^v*2^-133, with these complete legality constraints:
+
+ q15: v0, X1..A.
+ q16: v0, X1..255; or v1, X128..A.
+ q17: v0, X1..255; v1, X128..255; or v2, X128..A.
+
+Consequently r=x/s=X*2^(16+v)/D. In particular r>2^-7 and r<8; nonzero
+ratios and interpolation values avoid binary64 underflow/overflow here.
+Zero is exact. If r>=6, monotonic rounding fixes 6 and clipping is exact.
+
+3. Necessary carry conditions at p49
+
+For 0<r<6, let S=33,32,31 for interval widths 1/2,1,2 respectively.
+Set E=floor(log2(r)), L=16+v+S>=47, and N=X*2^L.
+If N is divisible by D, r is already an exact threshold boundary. Otherwise
+put j=D-(N mod D)>0, Q=ceil(N/D), so N+j=QD.
+
+The next threshold boundary is Q*2^-S. Because r>2^-7, all binade endpoints
+around r belong to this threshold lattice; hence its next boundary is at most
+2^(E+1) and the binade immediately to its left is the binade of r. This makes
+the half spacing immediately below that boundary exactly 2^(E-p), including
+an upper power-of-two boundary. At p>=35, each relevant boundary is exactly
+representable and even. Upward threshold crossing is therefore equivalent to
+
+ j*2^J<=D, J=p-E-S.                                      (2)
+
+Nearest rounding fixes each lower boundary and is monotone, so there is no
+downward floor loss. Dyadic interpolation is exact (Sterbenz on nonzero
+intervals, direct scaling at zero). An FP4 interval crossing also crosses a
+threshold boundary. These are standard rounding arguments, not novelty claims.
+
+At p49, E+S<=33, so J>=16 and j<=floor(D/65536). Equation (1) gives:
+
+ q       global j cap       t cap below      fixed safe modulus exponent m
+ 15            42                 16                    15
+ 16            85                  4                    15
+ 17           127                  1                    13
+
+In particular the j caps are 42,85,127, not the smaller p53 caps 2,5,7.
+If epsilon=0, both D and N are divisible by 2^q. Then j is a positive
+multiple of 2^q, contradicting j<=127. This branch is fully excluded.
+
+4. Positive-integer reduction
+
+For epsilon=+/-1, D is odd and gcd(A,D)=1. Since A*2^q is -epsilon modulo
+D and L>=2q, let u=L-2q. Then
+
+ t=(j*A^2+X*2^u)/D                                      (3)
+
+is a positive integer, and
+
+ 3X*2^u=t*(A*2^q+epsilon)-3j*A^2,                        (4)
+ Q=t*2^(2q)-3j*(A*2^q-epsilon).                          (5)
+
+Here Q<=2^34. Combining (2) and (3) gives the strict bound
+
+ 0<t<2^(34-2q)+A^2*2^-J.                                (6)
+
+Using J>=16 and the coefficient ranges yields t<=16,4,1 respectively.
+The allowed v,S give u>=17,15,13 for q15,16,17. Reduction of (4) therefore
+gives the necessary, deliberately weaker congruence
+
+ 3j*A^2 == epsilon*t (mod 2^m), m=15,15,13.               (7)
+
+The generally valid modulus exponent is min(u,q). In particular q15 does
+NOT permit dropping t*A*2^q modulo 2^u when u>q. The fixed moduli in (7)
+are safe for every legal v,S, including candidates with the wrong interval.
+
+5. Complete reduced certificate, not input samples
+
+Enumerate only A and t in the displayed ranges: 255*16+128*4+64=4656
+branches. The complete ledger records every branch in coefficient_ledger.csv.
+For each epsilon=+/-1 branch put c=3A^2, M=2^m and g=gcd(c,M).
+If g does not divide epsilon*t, (7) is impossible. Otherwise g<=t, and
+c/g is invertible modulo M/g. Every solution j occupies one residue class
+modulo M/g. Moreover
+
+ M/g >= 2048,8192,8192 > 42,85,127, respectively.
+
+Thus at most one j lies in 1..floor(D/65536). Checking the recorded residue
+identity and its range proves completeness without searching j or raw pairs.
+The verifier checks every expected A,t once, each residue equation, the
+coprimality and uniqueness condition, and the applicable branch exclusion.
+It does not assume the generator's modular inverse implementation is correct.
+
+ Certificate counts               q15     q16    q17    Total
+ all coefficient/t branches        4080     512     64     4656
+ epsilon-zero divisibility         1360     172     21     1553
+ gcd contradiction                 1167     150     22     1339
+ unique residue outside j range    1553     189     21     1763
+ coarse congruence survivors          0       1      0        1
+
+The sole survivor is
+
+ q16, A230, D5024427, epsilon+1, t4, j51, m15.
+
+It is an actual solution of the relaxed congruence, not a quantizer failure.
+It shows why proving that (7) has no solutions would be the wrong obligation.
+
+6. Exact exclusion of the sole relaxed survivor
+
+For this survivor the right side of (4) is
+
+ 4*(230*65536+1)-3*51*230^2 = 52199424 = 3*531*2^15.
+
+Every q16 legal input has u>=15. Equation (4) forces
+
+ X=531*2^(15-u).
+
+If u=15, X=531 exceeds the BF16 coefficient limit 255. If u>=16, X is
+not an integer because 531 is odd. Hence no legal X exists, even before
+the selected-interval and exact-binade guards. The generator retains all
+six v,S reconstructions: one illegal X and five nonintegral X values.
+There are no physical candidates. The exact guard J is not silently replaced
+by 16 as a sufficiency test: using J>=16 only overapproximated failures, and
+every element of that superset has now been excluded.
+
+All possible p49 subnormal carries are excluded. Monotonicity of the crossing
+condition extends the result through p64. The existing legal a242,x221
+witness fails p35..48: j47 and D2643285 satisfy
+47*2^15<=D<47*2^16. This supplies necessity without any new prefix sweep.
+
+7. Status and remaining obligations
+
+Proved here, with a complete small certificate: subnormal p49 no-carry and
+its sharp p49..64 boundary within p35..64. The argument assumes only the
+declared arithmetic contract and ordinary exact integer arithmetic. The
+independent audit checks the case reduction and uses separate code; it is
+not formal verification or a second physical experiment.
+
+Full-domain p49 sufficiency is now the prior normal p45 finite result plus
+this new subnormal result and zero/saturation composition. Its normal part
+is inherited and remains certificate-assisted. R45 normal symbolic exclusion,
+symbolic elimination of this 4656-row residue table, formal checking, the
+universal b37 proof without old certificates, and closest-theory derivability
+remain open. Rump Lemma 4.6 has not been obtained. Generic rounding and
+integer tools are established prior theory; a failed direct theorem mapping
+does not establish novelty. No speed, hardware, CUDA, or model-quality claim
+follows from a virtual precision boundary.

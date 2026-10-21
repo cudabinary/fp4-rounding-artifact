@@ -1,0 +1,95 @@
+Canonical target to preserved source: a bounded proof-completion review
+2026-10-21; source base dbf052d2798170c61eb1417631c75b72a6f82ac4
+
+Question, evidence and completion criterion
+The 45/49 certificates state equality of mathematical canonical observations.
+Does the original p53 observation match the staged FP64 selector, and does
+D1 compute the exact observation without an unmentioned integer-range premise?
+This affects final_revision.txt sections2..4 and claim F07. Completion means
+an explicit source-level derivation, or a named missing premise. It cannot
+establish correctness of an unavailable executed binary.
+
+Prior-work overlap and bounded method
+The historical domain report already states exact integer interval tests,
+d+S>=0 and N<2^58, tiny/saturation handling and deterministic composition.
+The normal45 proof already states dyadic interpolation and working-range
+safety. We reuse those results; we do not count them as new discoveries.
+This note makes their connection to A-double-prime.cu:91..110 and D1.cu:10..44
+explicit, including staged FP64 operations. No historical sweep/certificate
+or fixed witness is rerun. Repeating the known p44/p48 cases would not prove
+this universal source connection; their preserved receipts are sufficient.
+
+1. Contract and primitive semantics
+Finite BF16 magnitudes satisfy0<=x<=a. Positive a gives s=RN32(a/6), RNE,
+gradual underflow; a=0 uses2^-42 and all values are zero. The E2M1 grid is
+G=(0,1/2,1,3/2,2,3,4,6). Define C(y) for0<=y<6 by exact interval selection
+and floor(2^32*(y-G[k])/(G[k+1]-G[k])); C(6)=(6,2^32).
+R_p is virtual nearest ties-even with binary64 exponent range and35<=p<=64.
+These are specified numerical/source semantics. Historical flags are reported
+as ftz=false and precise division; their exact executed binary provenance
+is unavailable locally and is not established by this note.
+
+2. Range premises can be stated explicitly
+The least positive BF16 magnitude is2^-133; the greatest is less than2^128.
+For positive a, a/6>2^-136. Since2^-136 is exactly representable in F32,
+monotone RNE gives s>=2^-136. Also s<=a<2^128 because a is representable
+and a/6<=a. Hence s>0 and every positive x/s is strictly greater than2^-261
+and less than2^264. These conservative bounds already avoid working binary64
+underflow/overflow at every declared p. Both operands embed exactly in FP64.
+Clipping the quotient to6 is safe and produces an in-range representable value.
+Zero and signed-zero magnitude handling are separate and exact.
+
+3. Staged interpolation is the canonical observation
+Let y=min(R_53(x/s),6). The scalar ladder in A-double-prime selects the
+same lower and upper grid endpoints as C(y), with the last [4,6] interval
+also used at y=6. For a nonzero lower endpoint l and its upper endpoint h,
+h<=2*l and l<=y<=h. Thus y-l is exact by Sterbenz; the l=0 subtraction
+is exact directly. The endpoint difference h-l is one of1/2,1,2 and exact.
+Dividing by that width and multiplying by2^32 are exact power-of-two scalings.
+Their results have at most the working precision's significant bits and stay
+in range: tiny zero-interval values remain far above binary64 underflow;
+nonzero cancellation near a nonzero endpoint has quantum at least2^-64
+for p<=64. Final probability lies in[0,1], and its scaled value in[0,2^32].
+The source's unsigned64 conversion therefore truncates this nonnegative value
+to exactly the canonical floor, including the special C(6) representation.
+
+Consequently the specified staged p53 selector computes C(min(R_53(x/s),6)).
+The same exact-interpolation reasoning explains the abstract p45/p49 target;
+it does not implement or measure a native p45/p49 selector. The no-crossing
+certificates, not this interpolation lemma alone, equate that observation to
+C(min(x/s,6)) and preserve its canonical interval/base.
+
+4. D1's exact rational observation and safe source arithmetic
+Write positive normalized x=am*2^(ae-23), s=sm*2^(se-23), with
+2^23<=am,sm<2^24, even when a producing F32 value was subnormal. Put
+d=ae-se; r=am*2^d/sm. D1's integer comparisons of2r against1,2,3,4,6,8,12
+select the exact interval or saturation. If d<-33, r<2^-33, so the exact
+zero-interval threshold is zero. If d>=4 then r>=8 and clipping is exact.
+
+On the remaining nonsaturated path S=33,32,31. The selected interval gives
+0<=d+S<=34, as in the historical domain report. Thus numerator=am<<(d+S)
+is less than2^58; all shifts are valid and the numerator fits unsigned64.
+The quotient is less than2^34. The dyadic lower offset is exact and no larger
+than that quotient. Hence t=floor(numerator/sm)-lower_scaled is the exact
+threshold in[0,2^32); saturation separately returns2^32. For sm=2^23 the
+right shift computes the same floor; otherwise unsigned64 division must
+return the exact quotient. The selected Restoring=false wrapper is D1.cu:43.
+These claims concern defined source operations, not a freshly executed CUDA test.
+
+5. Sign and outer composition
+The source handles zero magnitude before unpacking and retains the sign bit
+in code, including negative zero. BF16 input expansion is a bit shift and
+the shared scale/RNG/packing function bodies are identified in the static
+quotient-role audit. Equal scale/base/T and unchanged logical Philox words,
+addresses, prefix/lazy policy, packing and deterministic consumer imply the
+same scalar decisions. Warp/barrier behavior and compiled scheduling remain
+separate implementation obligations. Diagnostic entries are not a trace of
+the timed kernel, and an export name is not an executed-binary manifest.
+
+Disposition
+The mathematical-to-source observation is justified under the stated primitive
+semantics. No missing scalar arithmetic premise was found in this bounded
+review. Exact machine-code identity, compiler correctness, all CUDA executions
+and the runtime cause of A-double-prime's advantage remain UNKNOWN. No new
+numerical result, whole-program verification or general rounding theorem is
+claimed. A new empirical boundary run is unnecessary for this source derivation.

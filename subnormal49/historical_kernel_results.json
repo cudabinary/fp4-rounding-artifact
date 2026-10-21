@@ -1,0 +1,171 @@
+{
+  "schema": "r49-residue-kernel-v1",
+  "base_commit": "2e7c2dae61ac9da85e889168694a459bfed13cd1",
+  "source_sha256": "f8ba177d3ec4ac55aaa710e866fa5fb145b9120900af406d580ddbd981de2917",
+  "protocol_sha256": "674a30ee1a90e5edddd55d6a4f04753c83c006a272b0ee0153687129a3d91fb1",
+  "counts": {
+    "coefficient_t_branches": 4656,
+    "range_exclusion": 1763,
+    "gcd_exclusion": 1339,
+    "epsilon_zero": 1553,
+    "coarse_survivors": 1,
+    "v_S_branches": 6,
+    "input_range_exclusion": 1,
+    "nonintegral_X": 5
+  },
+  "per_class": [
+    {
+      "q": 15,
+      "counts": {
+        "coefficient_t_branches": 4080,
+        "range_exclusion": 1553,
+        "gcd_exclusion": 1167,
+        "epsilon_zero": 1360
+      }
+    },
+    {
+      "q": 16,
+      "counts": {
+        "coefficient_t_branches": 512,
+        "range_exclusion": 189,
+        "gcd_exclusion": 150,
+        "epsilon_zero": 172,
+        "coarse_survivors": 1,
+        "v_S_branches": 6,
+        "input_range_exclusion": 1,
+        "nonintegral_X": 5
+      }
+    },
+    {
+      "q": 17,
+      "counts": {
+        "coefficient_t_branches": 64,
+        "range_exclusion": 21,
+        "gcd_exclusion": 22,
+        "epsilon_zero": 21
+      }
+    }
+  ],
+  "coarse_survivors": [
+    {
+      "q": 16,
+      "A": 230,
+      "D": 5024427,
+      "epsilon": 1,
+      "t": 4,
+      "j": 51,
+      "m": 15,
+      "amax_code": 358
+    }
+  ],
+  "reconstructions": [
+    {
+      "q": 16,
+      "A": 230,
+      "D": 5024427,
+      "epsilon": 1,
+      "t": 4,
+      "j": 51,
+      "m": 15,
+      "amax_code": 358,
+      "v": 0,
+      "S": 31,
+      "L": 47,
+      "u": 15,
+      "numerator": 52199424,
+      "X": 531,
+      "status": "BF16_OR_MAXIMUM_LEGALITY_EXCLUSION"
+    },
+    {
+      "q": 16,
+      "A": 230,
+      "D": 5024427,
+      "epsilon": 1,
+      "t": 4,
+      "j": 51,
+      "m": 15,
+      "amax_code": 358,
+      "v": 0,
+      "S": 32,
+      "L": 48,
+      "u": 16,
+      "numerator": 52199424,
+      "X": null,
+      "status": "NONINTEGRAL_RECONSTRUCTED_INPUT"
+    },
+    {
+      "q": 16,
+      "A": 230,
+      "D": 5024427,
+      "epsilon": 1,
+      "t": 4,
+      "j": 51,
+      "m": 15,
+      "amax_code": 358,
+      "v": 0,
+      "S": 33,
+      "L": 49,
+      "u": 17,
+      "numerator": 52199424,
+      "X": null,
+      "status": "NONINTEGRAL_RECONSTRUCTED_INPUT"
+    },
+    {
+      "q": 16,
+      "A": 230,
+      "D": 5024427,
+      "epsilon": 1,
+      "t": 4,
+      "j": 51,
+      "m": 15,
+      "amax_code": 358,
+      "v": 1,
+      "S": 31,
+      "L": 48,
+      "u": 16,
+      "numerator": 52199424,
+      "X": null,
+      "status": "NONINTEGRAL_RECONSTRUCTED_INPUT"
+    },
+    {
+      "q": 16,
+      "A": 230,
+      "D": 5024427,
+      "epsilon": 1,
+      "t": 4,
+      "j": 51,
+      "m": 15,
+      "amax_code": 358,
+      "v": 1,
+      "S": 32,
+      "L": 49,
+      "u": 17,
+      "numerator": 52199424,
+      "X": null,
+      "status": "NONINTEGRAL_RECONSTRUCTED_INPUT"
+    },
+    {
+      "q": 16,
+      "A": 230,
+      "D": 5024427,
+      "epsilon": 1,
+      "t": 4,
+      "j": 51,
+      "m": 15,
+      "amax_code": 358,
+      "v": 1,
+      "S": 33,
+      "L": 50,
+      "u": 18,
+      "numerator": 52199424,
+      "X": null,
+      "status": "NONINTEGRAL_RECONSTRUCTED_INPUT"
+    }
+  ],
+  "physical_candidates": [],
+  "counterexamples": [],
+  "verdict": "NO_COUNTEREXAMPLE_IN_COMPLETE_REDUCED_KERNEL",
+  "proof_kind": "Analytic reduction plus complete finite residue certificate; not a pure symbolic exclusion",
+  "raw_input_pairs_enumerated": false,
+  "gpu_executions": 0
+}

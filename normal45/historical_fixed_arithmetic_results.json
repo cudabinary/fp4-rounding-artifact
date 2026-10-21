@@ -1,0 +1,88 @@
+{
+  "status": "PASS_FIXED_ARITHMETIC",
+  "scale_checks": [
+    {
+      "A": 128,
+      "q": 18,
+      "D": 11184811,
+      "epsilon": 1
+    },
+    {
+      "A": 142,
+      "q": 18,
+      "D": 12408149,
+      "epsilon": -1
+    },
+    {
+      "A": 191,
+      "q": 18,
+      "D": 16689835,
+      "epsilon": 1
+    },
+    {
+      "A": 192,
+      "q": 17,
+      "D": 8388608,
+      "epsilon": 0
+    },
+    {
+      "A": 236,
+      "q": 17,
+      "D": 10310997,
+      "epsilon": -1
+    },
+    {
+      "A": 239,
+      "q": 17,
+      "D": 10442069,
+      "epsilon": -1
+    },
+    {
+      "A": 255,
+      "q": 17,
+      "D": 11141120,
+      "epsilon": 0
+    }
+  ],
+  "witness": {
+    "a_code": 492,
+    "x_code": 199,
+    "identity_verified": true,
+    "ideal": [
+      2,
+      2274877096
+    ],
+    "p44": [
+      2,
+      2274877097
+    ],
+    "p45": [
+      2,
+      2274877096
+    ],
+    "negative_control": "p44 differs by one threshold unit"
+  },
+  "eta_exceptions": [
+    {
+      "q": 18,
+      "A": 142,
+      "X": 227,
+      "D": 12408149,
+      "assumed_eta": 1,
+      "actual_eta": 0,
+      "X_times_65536": 14876672
+    },
+    {
+      "q": 17,
+      "A": 239,
+      "X": 231,
+      "D": 10442069,
+      "assumed_eta": 1,
+      "actual_eta": 0,
+      "X_times_65536": 15138816
+    }
+  ],
+  "source_sha256": "6540c17bfeea131e49a351478b3b0753f97755d8821c4c501521e3893874ea16",
+  "raw_pair_sweep": false,
+  "gpu_runs": 0
+}

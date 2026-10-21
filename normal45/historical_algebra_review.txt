@@ -1,0 +1,83 @@
+Algebra-only review of the refined normal-scale p45 bounds
+2026-10-21
+
+Scope and disposition
+
+This note was added after the independent R49 first-run artifacts froze.
+It is intentionally outside the already frozen R49 manifest. No frozen
+R49 file or manifest is changed by this note.
+
+The refined inequality and the two supplied eta contradictions are valid.
+No independent normal-scale enumeration of the reported 236 candidates
+was performed. The reported 234 input-range exclusions and two remaining
+candidates are the root agent's finite-enumeration result, not an
+independently replicated candidate count. No nonenumerative exclusion of
+all normal-scale p45 branches was obtained. Pure symbolic normal45
+sufficiency should remain OPEN; the reduced result is certificate-assisted.
+No further program, experiment, or enumeration was run for this note.
+
+1. Refined Q and t bounds
+
+Assume the normal-scale carry setup: r is positive and nonsaturated,
+E=floor(log2 r), S is the selected threshold scaling exponent,
+J=45-E-S, N+j=QD, Q=ceil(r*2^S), and the common t identity applies.
+The generic grid bound E+S<=33 gives J>=12. Since D<2^24 and j>=1,
+the carry bound j*2^J<=D gives J<=23.
+
+By definition of E, r<2^(E+1). Thus
+  r*2^S < 2^(E+1+S) = 2^(46-J).
+For every original carry J12..23 this upper bound is an integer, so
+  Q=ceil(r*2^S)<=2^(46-J).
+From the exact common-lemma identity
+  t=Q/2^(2q)+j*A^2/D-j/(D*2^(2q)),
+the last term is strictly positive, and j/D<=2^-J. Consequently
+  t < 2^(46-J-2q)+A^2*2^-J
+    = (A^2+2^(46-2q))*2^-J.
+No equality or ceiling case reverses the strict inequality.
+
+For q18,A128..191, positivity of integer t requires
+  2^J < 191^2+2^10 = 37505.
+Since 32768<37505<65536, J<=15; together with J>=12 this leaves J12..15.
+For q17,A192..255, the analogous requirement is
+  2^J < 255^2+2^12 = 69121.
+Since 65536<69121<131072, J<=16; this leaves J12..16.
+The proposed refined coverage bounds are therefore sound.
+
+2. Exact checks of the supplied eta contradictions
+
+Use the normal normalization condition eta=1 iff X*65536<D.
+The supplied q18 candidate has
+  A142,t4,J12,eta1,L50,u14,j2277,X227,D12408149,epsilon-1.
+Its scale identity is
+  3D=142*262144-1=37224447.
+The full-equation reconstruction is
+  4*37224447-3*2277*142^2
+  =148897788-137740284
+  =11157504=3*227*2^14.
+However X*65536=14876672>12408149=D, so its actual eta is zero.
+
+The supplied q17 candidate has
+  A239,t5,J12,eta1,L50,u16,j649,X231,D10442069,epsilon-1.
+Its scale identity is
+  3D=239*131072-1=31326207.
+The reconstruction is
+  5*31326207-3*649*239^2
+  =156631035-111214587
+  =45416448=3*231*2^16.
+Again X*65536=15138816>10442069=D, so its actual eta is zero.
+Both eta1 branches are therefore impossible independently of later x<=a
+or interval guards. These are checks of supplied candidates, not an
+independent derivation that they are the only candidates.
+
+3. An earlier exact guard, not a new symbolic theorem
+
+Before reconstructing or accepting X, one can intersect its range 128..255
+with these exact integer bounds:
+  eta1: X<=floor((D-1)/65536);
+  eta0: X>=ceil(D/65536).
+Equivalently, with B=t*(A*2^q+epsilon)-3*j*A^2=3X*2^u:
+  eta1 requires B*65536<3D*2^u;
+  eta0 requires B*65536>=3D*2^u.
+This may make the finite exclusions easier to present or apply earlier.
+It does not supply a nonenumerative exclusion of all remaining normal45
+possibilities, and none is claimed in this audit.

@@ -1,0 +1,21 @@
+{
+  "categories": [
+    "Private repository history and commit identities",
+    "Private operational archive records and locators",
+    "Original and revised manuscript PDF/DOCX files",
+    "CUDA, Philox and other third-party implementation snapshots",
+    "Full primary-source papers/HTML",
+    "Model weights, text inputs, activations and native arrays",
+    "Private machine IDs, resource billing details and raw logs",
+    "Original per-study manifests binding omitted material",
+    "Independent direct-j enumerator and every-j raw ledger",
+    "Unexecuted independent normal checker design"
+  ],
+  "independent_every_j_ledger": {
+    "bytes": 5219160,
+    "sha256": "f2cbdc83e343b98f0d94c05bf6246d6ed395d74d32def5b416ae0506c34cc20f",
+    "status": "NOT_INCLUDED_NO_FRESH_IDENTITY_CHECK"
+  },
+  "external_historical_references": "References inside preserved dated prose identify historical context, not bundled public dependencies",
+  "new_GPU_or_arithmetic_runs": 0
+}

@@ -1,0 +1,450 @@
+{
+  "schema": "independent-r49-direct-j-result-v1",
+  "verdict": "NO_R49_COUNTEREXAMPLE_IN_COMPLETE_REDUCED_CONDITIONS",
+  "source_base": "07ac3e0c932e54fcd96b310e0990ab8513e0e84a",
+  "binding": {
+    "started_utc": "2026-10-21T05:32:40.560226+00:00",
+    "source_base": "07ac3e0c932e54fcd96b310e0990ab8513e0e84a",
+    "protocol_sha256": "6c45e547bf7bc406bd0c9bda5f4fde5bfc6aef5be3edcc2c7afc516818410e51",
+    "implementation_sha256": "616d9abd26d9e81b31edb1926ae21456399094607e7862ed4963aee2b00129b2",
+    "environment": {
+      "python_version": "3.12.14",
+      "implementation": "cpython",
+      "operating_system": "Windows-11-10.0.26200-SP0",
+      "integer_arithmetic": "arbitrary precision",
+      "dependencies": "Python standard library only"
+    }
+  },
+  "ended_utc": "2026-10-21T05:32:40.921317+00:00",
+  "elapsed_seconds": 0.3619704000011552,
+  "method": "Direct j substitution for every relaxed A,t,j; no inverse/gcd candidate generator",
+  "proof_kind": "Analytic coverage plus complete finite reduced-condition enumeration",
+  "raw_BF16_pairs_enumerated": false,
+  "counts": {
+    "A_values": 447,
+    "coefficient_t_branches": 4656,
+    "epsilon_zero_coefficient_t_branches": 1553,
+    "empty_carry_range_coefficient_t_branches": 80,
+    "congruence_checks": 124640,
+    "epsilon_zero_divisibility_checks": 42130,
+    "diagnostic_epsilon_zero_congruence_hits": 99,
+    "nonzero_epsilon_congruence_rejections": 82509,
+    "coarse_survivors": 1,
+    "full_equation_numerator_evaluations": 1,
+    "reconstruction_checks": 6,
+    "canonical_comparisons": 0,
+    "rounding_helper_controls": 4,
+    "reconstruction_status_BF16_X_RANGE_EXCLUSION": 1,
+    "reconstruction_status_NONINTEGER_X": 5
+  },
+  "minimum_J": 16,
+  "classes": [
+    {
+      "q": 15,
+      "A_min": 1,
+      "A_max": 255,
+      "v_values": [
+        0
+      ],
+      "modulus_cases": [
+        {
+          "v": 0,
+          "S": 31,
+          "u": 17,
+          "m": 15
+        },
+        {
+          "v": 0,
+          "S": 32,
+          "u": 18,
+          "m": 15
+        },
+        {
+          "v": 0,
+          "S": 33,
+          "u": 19,
+          "m": 15
+        }
+      ],
+      "safe_m": 15,
+      "observed_t_maxima": [
+        16
+      ],
+      "maximum_D": 2785280,
+      "maximum_j_cap": 42,
+      "A_epsilon_counts": {
+        "1": 85,
+        "-1": 85,
+        "0": 85
+      },
+      "counts": {
+        "A_values": 255,
+        "coefficient_t_branches": 4080,
+        "epsilon_zero_coefficient_t_branches": 1360,
+        "empty_carry_range_coefficient_t_branches": 80,
+        "congruence_checks": 85344,
+        "epsilon_zero_divisibility_checks": 28896,
+        "diagnostic_epsilon_zero_congruence_hits": 64,
+        "nonzero_epsilon_congruence_rejections": 56448,
+        "coarse_survivors": 0,
+        "full_equation_numerator_evaluations": 0,
+        "reconstruction_checks": 0,
+        "canonical_comparisons": 0,
+        "rounding_helper_controls": 0
+      }
+    },
+    {
+      "q": 16,
+      "A_min": 128,
+      "A_max": 255,
+      "v_values": [
+        0,
+        1
+      ],
+      "modulus_cases": [
+        {
+          "v": 0,
+          "S": 31,
+          "u": 15,
+          "m": 15
+        },
+        {
+          "v": 0,
+          "S": 32,
+          "u": 16,
+          "m": 16
+        },
+        {
+          "v": 0,
+          "S": 33,
+          "u": 17,
+          "m": 16
+        },
+        {
+          "v": 1,
+          "S": 31,
+          "u": 16,
+          "m": 16
+        },
+        {
+          "v": 1,
+          "S": 32,
+          "u": 17,
+          "m": 16
+        },
+        {
+          "v": 1,
+          "S": 33,
+          "u": 18,
+          "m": 16
+        }
+      ],
+      "safe_m": 15,
+      "observed_t_maxima": [
+        4
+      ],
+      "maximum_D": 5570560,
+      "maximum_j_cap": 85,
+      "A_epsilon_counts": {
+        "1": 43,
+        "0": 43,
+        "-1": 42
+      },
+      "counts": {
+        "A_values": 128,
+        "coefficient_t_branches": 512,
+        "epsilon_zero_coefficient_t_branches": 172,
+        "empty_carry_range_coefficient_t_branches": 0,
+        "congruence_checks": 32512,
+        "epsilon_zero_divisibility_checks": 11008,
+        "diagnostic_epsilon_zero_congruence_hits": 32,
+        "nonzero_epsilon_congruence_rejections": 21503,
+        "coarse_survivors": 1,
+        "full_equation_numerator_evaluations": 0,
+        "reconstruction_checks": 0,
+        "canonical_comparisons": 0,
+        "rounding_helper_controls": 0
+      }
+    },
+    {
+      "q": 17,
+      "A_min": 128,
+      "A_max": 191,
+      "v_values": [
+        0,
+        1,
+        2
+      ],
+      "modulus_cases": [
+        {
+          "v": 0,
+          "S": 31,
+          "u": 13,
+          "m": 13
+        },
+        {
+          "v": 0,
+          "S": 32,
+          "u": 14,
+          "m": 14
+        },
+        {
+          "v": 0,
+          "S": 33,
+          "u": 15,
+          "m": 15
+        },
+        {
+          "v": 1,
+          "S": 31,
+          "u": 14,
+          "m": 14
+        },
+        {
+          "v": 1,
+          "S": 32,
+          "u": 15,
+          "m": 15
+        },
+        {
+          "v": 1,
+          "S": 33,
+          "u": 16,
+          "m": 16
+        },
+        {
+          "v": 2,
+          "S": 31,
+          "u": 15,
+          "m": 15
+        },
+        {
+          "v": 2,
+          "S": 32,
+          "u": 16,
+          "m": 16
+        },
+        {
+          "v": 2,
+          "S": 33,
+          "u": 17,
+          "m": 17
+        }
+      ],
+      "safe_m": 13,
+      "observed_t_maxima": [
+        1
+      ],
+      "maximum_D": 8344917,
+      "maximum_j_cap": 127,
+      "A_epsilon_counts": {
+        "-1": 22,
+        "0": 21,
+        "1": 21
+      },
+      "counts": {
+        "A_values": 64,
+        "coefficient_t_branches": 64,
+        "epsilon_zero_coefficient_t_branches": 21,
+        "empty_carry_range_coefficient_t_branches": 0,
+        "congruence_checks": 6784,
+        "epsilon_zero_divisibility_checks": 2226,
+        "diagnostic_epsilon_zero_congruence_hits": 3,
+        "nonzero_epsilon_congruence_rejections": 4558,
+        "coarse_survivors": 0,
+        "full_equation_numerator_evaluations": 0,
+        "reconstruction_checks": 0,
+        "canonical_comparisons": 0,
+        "rounding_helper_controls": 0
+      }
+    }
+  ],
+  "coarse_survivors": [
+    {
+      "q": 16,
+      "A": 230,
+      "D": 5024427,
+      "epsilon": 1,
+      "t": 4,
+      "j": 51,
+      "m": 15,
+      "v_values": [
+        0,
+        1
+      ]
+    }
+  ],
+  "reconstructions": [
+    {
+      "candidate": {
+        "q": 16,
+        "A": 230,
+        "D": 5024427,
+        "epsilon": 1,
+        "t": 4,
+        "j": 51,
+        "m": 15,
+        "v_values": [
+          0,
+          1
+        ]
+      },
+      "v": 0,
+      "S": 31,
+      "L": 47,
+      "u": 15,
+      "numerator": 52199424,
+      "divisor": 98304,
+      "X_floor": 531,
+      "X_remainder": 0,
+      "physical_X_min": 1,
+      "physical_X_max": 255,
+      "status": "BF16_X_RANGE_EXCLUSION"
+    },
+    {
+      "candidate": {
+        "q": 16,
+        "A": 230,
+        "D": 5024427,
+        "epsilon": 1,
+        "t": 4,
+        "j": 51,
+        "m": 15,
+        "v_values": [
+          0,
+          1
+        ]
+      },
+      "v": 0,
+      "S": 32,
+      "L": 48,
+      "u": 16,
+      "numerator": 52199424,
+      "divisor": 196608,
+      "X_floor": 265,
+      "X_remainder": 98304,
+      "physical_X_min": 1,
+      "physical_X_max": 255,
+      "status": "NONINTEGER_X"
+    },
+    {
+      "candidate": {
+        "q": 16,
+        "A": 230,
+        "D": 5024427,
+        "epsilon": 1,
+        "t": 4,
+        "j": 51,
+        "m": 15,
+        "v_values": [
+          0,
+          1
+        ]
+      },
+      "v": 0,
+      "S": 33,
+      "L": 49,
+      "u": 17,
+      "numerator": 52199424,
+      "divisor": 393216,
+      "X_floor": 132,
+      "X_remainder": 294912,
+      "physical_X_min": 1,
+      "physical_X_max": 255,
+      "status": "NONINTEGER_X"
+    },
+    {
+      "candidate": {
+        "q": 16,
+        "A": 230,
+        "D": 5024427,
+        "epsilon": 1,
+        "t": 4,
+        "j": 51,
+        "m": 15,
+        "v_values": [
+          0,
+          1
+        ]
+      },
+      "v": 1,
+      "S": 31,
+      "L": 48,
+      "u": 16,
+      "numerator": 52199424,
+      "divisor": 196608,
+      "X_floor": 265,
+      "X_remainder": 98304,
+      "physical_X_min": 128,
+      "physical_X_max": 230,
+      "status": "NONINTEGER_X"
+    },
+    {
+      "candidate": {
+        "q": 16,
+        "A": 230,
+        "D": 5024427,
+        "epsilon": 1,
+        "t": 4,
+        "j": 51,
+        "m": 15,
+        "v_values": [
+          0,
+          1
+        ]
+      },
+      "v": 1,
+      "S": 32,
+      "L": 49,
+      "u": 17,
+      "numerator": 52199424,
+      "divisor": 393216,
+      "X_floor": 132,
+      "X_remainder": 294912,
+      "physical_X_min": 128,
+      "physical_X_max": 230,
+      "status": "NONINTEGER_X"
+    },
+    {
+      "candidate": {
+        "q": 16,
+        "A": 230,
+        "D": 5024427,
+        "epsilon": 1,
+        "t": 4,
+        "j": 51,
+        "m": 15,
+        "v_values": [
+          0,
+          1
+        ]
+      },
+      "v": 1,
+      "S": 33,
+      "L": 50,
+      "u": 18,
+      "numerator": 52199424,
+      "divisor": 786432,
+      "X_floor": 66,
+      "X_remainder": 294912,
+      "physical_X_min": 128,
+      "physical_X_max": 230,
+      "status": "NONINTEGER_X"
+    }
+  ],
+  "physical_candidates": [],
+  "counterexamples": [],
+  "exact_scale_anomalies": [],
+  "failures": [],
+  "limitations": "Prior exposure is disclosed in the protocol. This is a new implementation and run, not a blind audit, proof-assistant proof, normal-scale certificate, or GPU evidence.",
+  "complete_ledgers": {
+    "all_coefficient_t_branches.csv": {
+      "bytes": 273429,
+      "sha256": "4e28135d795e13c99b17f40ff9c6c156e991f297603512f2249317b5d5083e49"
+    },
+    "all_congruence_checks.csv": {
+      "bytes": 5219160,
+      "sha256": "f2cbdc83e343b98f0d94c05bf6246d6ed395d74d32def5b416ae0506c34cc20f"
+    }
+  }
+}

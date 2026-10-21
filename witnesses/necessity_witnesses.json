@@ -1,0 +1,46 @@
+{
+  "schema": "fp4-b32-selected-necessity-witnesses-v1",
+  "source_sha256": "1275bb3724a3f9d49c4250d727a2fabc9e97bc383dc672f7b0e2aa7c39f7a39e",
+  "source_commit": "572abc82fd7c02143ea1d1941993ac4cc9ac8a83",
+  "selection": "First recorded failure of each of the two b32 prefixes; no prefix replay or new arithmetic",
+  "witnesses": [
+    {
+      "source_case": "normal-b32-p44",
+      "historical_first_failure": {
+        "amax_bf16": 492,
+        "x_bf16": 199,
+        "scale_f32": 10310997,
+        "b": 32,
+        "p": 44,
+        "ratio_n": 13041664,
+        "ratio_d": 10310997,
+        "rounded_n": 11125567169536,
+        "rounded_d": 8796093022208,
+        "ideal_base": 2,
+        "ideal_T": 2274877096,
+        "rounded_base": 2,
+        "rounded_T": 2274877097,
+        "mismatch": true
+      }
+    },
+    {
+      "source_case": "full-b32-p48",
+      "historical_first_failure": {
+        "amax_bf16": 242,
+        "x_bf16": 221,
+        "scale_f32": 2643285,
+        "b": 32,
+        "p": 48,
+        "ratio_n": 14483456,
+        "ratio_d": 2643285,
+        "rounded_n": 192787120963584,
+        "rounded_d": 35184372088832,
+        "ideal_base": 6,
+        "ideal_T": 3176857458,
+        "rounded_base": 6,
+        "rounded_T": 3176857459,
+        "mismatch": true
+      }
+    }
+  ]
+}

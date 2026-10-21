@@ -1,0 +1,7 @@
+FP4 stochastic rounding numerical artifact, version 0.1.0.
+Supporting artifact for the working manuscript "Bit-Exact FP4 Stochastic Rounding
+— Correction Elimination and Precision Boundaries".
+
+This is an artifact-version description. Confirm authors, repository URL and
+actual public-release metadata before constructing a formal citation. No DOI,
+acceptance, submission event or validated CITATION.cff is asserted here.

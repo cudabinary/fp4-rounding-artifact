@@ -1,0 +1,126 @@
+Independent direct-j R49 reduced-condition enumeration
+2026-10-21
+
+Result
+
+The first and only enumeration run found one coarse necessary-congruence
+survivor and no legal BF16 reconstruction. No internal consistency failure
+or R49 counterexample was found. The implementation tested every allowed j
+directly and used neither a modular-inverse nor a gcd candidate generator.
+
+The result is an independent implementation/run of the finite reduced
+conditions. It is not a blind audit: the auditor had previously reviewed
+the older kernel and knew its reported result. This prior exposure was
+declared in the pre-run protocol. During this follow-up the old kernel,
+ledger, generated candidates, and verifier were not reread, imported,
+copied, or executed. No expected branch count, survivor count, survivor
+identity, or zero-counterexample result was asserted in the new program.
+
+Source base: 07ac3e0c932e54fcd96b310e0990ab8513e0e84a, verified read-only
+before registering pre_run_protocol.json. The protocol, implementation,
+environment, first-run outputs, and complete ledgers have SHA256 identities
+in the result and freeze manifest. The enumeration was not rerun to change
+formatting or after seeing the result.
+
+Coverage derived from the contract
+
+In BF16 minimum units 2^-133, the three subnormal-scale classes are
+A,2A,4A, with q15/A1..255, q16/A128..255, q17/A128..191. Exact division
+by six and nearest F32-subnormal rounding give
+  D=nearest(A*2^q/3), 3D=A*2^q+epsilon, epsilon in {-1,0,+1}.
+The denominator-three fractions do not tie.
+
+Every positive physical input is X*2^v minimum units. Legal v values are
+0; 0,1; and 0,1,2 for the three classes. The full BF16 X bounds used in
+reconstruction are:
+  q15: v0 has X1..A;
+  q16: v0 has X1..255, v1 has X128..A;
+  q17: v0 has X1..255, v1 has X128..255, v2 has X128..A.
+
+For a nonsaturated ratio, interval widths give S31/32/33 and E+S<=33.
+At p49, J=49-E-S>=16, so a carry has 1<=j<=floor(D/65536).
+The common t reduction requires epsilon=+/-1. For those scales D is odd,
+gcd(A,D)=1, L=16+v+S>=47, and u=L-2q>=0. The relation
+A*2^q=-epsilon modulo D implies A^2*2^(2q)=1 modulo D, giving the
+positive integer t=(j*A^2+X*2^u)/D and
+  3X*2^u=t*(A*2^q+epsilon)-3*j*A^2.
+Reducing modulo 2^min(u,q) gives 3*j*A^2=epsilon*t modulo that power.
+
+Using Q<=2^34 and the carry bound gives the strict upper bound
+  0<t<2^(34-2q)+A^2/65536.
+The program computes the largest integer strictly below this rational
+separately for each A. It obtains maxima 16,4,1; none were hard-coded.
+It also computes every min(u,q) over each class's legal v and S, obtaining
+the safe fixed exponents 15,15,13. The resulting maximum j caps are
+42,85,127. All these values are outputs of the declared derivations.
+
+For epsilon=0, D and N are divisible by 2^q, so a carry j would have to
+be a positive multiple of 2^q>=32768. The maximum j cap is only 127.
+The program nevertheless records every relaxed A,t,j congruence for these
+scales and separately checks this divisibility exclusion. Such rows do
+not use the epsilon=+/-1 t lemma and are not coarse survivors.
+
+Observed complete enumeration
+
+ class  A values  A,t branches  direct congruence checks  coarse survivors
+ q15       255       4080                  85344                 0
+ q16       128        512                  32512                 1
+ q17        64         64                   6784                 0
+ total     447       4656                 124640                 1
+
+There are 1553 epsilon-zero A,t branches, and 42130 epsilon-zero j
+divisibility checks. All fail the necessary positive-multiple condition.
+Their congruence has 99 diagnostic hits; these are explicitly preserved
+in the full ledger, not mislabeled as t-lemma survivors. Of the 82510
+epsilon-nonzero congruence checks, 82509 reject and one survives.
+Eighty A,t branches have an empty carry-j range and remain in the branch
+ledger with that disposition.
+
+Exactly one full-equation numerator construction and six v/S reconstruction
+checks were performed. One has an integer X outside the BF16 range; five
+have noninteger X. No physical candidate reaches a canonical-output
+comparison, so that comparison count is zero. Four small nearest-even
+rounding helper controls also pass. The declared predicate/reconstruction
+checks total 166780 (124640+42130+6+0+4); this is not a count of every
+low-level arithmetic operation. The numerator construction is separately
+counted as one.
+
+The coarse survivor, as independently produced by this run, is
+  q16,A230,D5024427,epsilon+1,t4,j51,m15.
+Its full-equation numerator is
+  4*(230*65536+1)-3*51*230^2=52199424=3*531*2^15.
+For its legal class u>=15. At u15 the only X is 531, exceeding 255.
+For every u>15, X=531/2^(u-15) is noninteger because 531 is odd. This
+excludes every legal v/S reconstruction without relying on an exact
+ratio-binade or interval guard.
+
+File retention and freeze
+
+all_coefficient_t_branches.csv is the complete small branch summary:
+273429 bytes and 4656 data rows. all_congruence_checks.csv is the first
+full every-j arithmetic ledger: 5219160 bytes and 124640 data rows. The
+record counts were checked structurally after the run without reevaluating
+the arithmetic predicates. That structural check is recorded separately.
+
+The 5219160-byte every-j ledger is ARCHIVE_ONLY. Its original logical
+filename, byte count, and SHA256 remain in the frozen manifest. It is
+retained at this audit directory for the root agent to preserve under
+local_only or in the result ZIP as appropriate; it is not intended to be
+staged as a large raw repository artifact. No formatting rerun was made.
+
+independent_results.json contains all coarse survivors and reconstruction
+dispositions, derived bounds/moduli, exact counters, failures (empty), and
+environment/source/protocol bindings. run_stdout.txt is the complete first
+command output. freeze_manifest.json identifies all delivered files except
+the manifest itself by logical filename, bytes, SHA256, and retention class.
+
+Limits
+
+This is analytic coverage plus a complete finite reduced-condition
+certificate, not a nonenumerative symbolic proof or proof-assistant check.
+No raw BF16 (a,x) input sweep, native/GPU execution, compiler/install,
+network request, Git mutation, normal-scale enumeration, or performance
+experiment was performed. Sufficiency depends on the stated scalar contract
+and the mathematical coverage of the carry and t reductions. The work does
+not establish publication novelty, unrestricted F32-scale safety, FTZ safety,
+native quantizer semantics, or a normal-scale p45 theorem.
